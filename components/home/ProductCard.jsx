@@ -1,9 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatMoney } from "@/lib/money";
+import { getProductHref } from "@/lib/product-href";
 
 export function ProductCard({ product }) {
-  const href = `/products/${product.handle}`;
+  const isPlaceholder =
+    product.placeholder === true || String(product.id ?? "").startsWith("ph-");
+  /** Demo cards (sin producto en Shopify) enlazan al catálogo, no a handles inventados. */
+  const href = isPlaceholder ? "/collections" : getProductHref(product);
+  const ctaLabel = isPlaceholder ? "Ver colecciones" : "Ver producto";
   const img = product.featuredImage;
   const price = product.priceRange?.minVariantPrice;
   const amount = price?.amount;
@@ -52,7 +57,7 @@ export function ProductCard({ product }) {
           href={href}
           className="mt-4 inline-flex w-fit items-center text-xs font-semibold uppercase tracking-wider text-[var(--oob-cream)] underline-offset-4 hover:text-[var(--oob-gold)] hover:underline"
         >
-          Ver producto
+          {ctaLabel}
         </Link>
       </div>
     </article>

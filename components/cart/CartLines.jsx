@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { getProductHref } from "@/lib/product-href";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -65,7 +66,7 @@ export function CartLines({ cart }) {
               className="flex flex-col sm:flex-row gap-4 p-4 bg-[var(--oob-surface)]/30"
             >
               <Link
-                href={`/products/${product?.handle}`}
+                href={getProductHref(product)}
                 className="relative h-28 w-24 shrink-0 overflow-hidden rounded border border-[color:var(--oob-border)] bg-[var(--oob-bg-elevated)]"
               >
                 {img?.url ? (
@@ -80,7 +81,7 @@ export function CartLines({ cart }) {
               </Link>
               <div className="flex-1 min-w-0">
                 <Link
-                  href={`/products/${product?.handle}`}
+                  href={getProductHref(product)}
                   className="font-medium text-[var(--oob-cream)] hover:text-[var(--oob-gold)]"
                 >
                   {product?.title}

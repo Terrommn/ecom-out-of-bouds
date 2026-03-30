@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "diagnose:collection": "node --env-file=.env scripts/diagnose-collection-products.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

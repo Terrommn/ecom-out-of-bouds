@@ -27,7 +27,11 @@ export function FeaturedCollections({ collections }) {
           {items.map((col, i) => (
             <Link
               key={col.id}
-              href={`/collections/${col.handle}`}
+              href={
+                col.placeholder === true || String(col.id ?? "").startsWith("ph-")
+                  ? "/collections"
+                  : `/collections/${col.handle}`
+              }
               className={`group relative overflow-hidden rounded-lg border border-[color:var(--oob-border)] aspect-[4/5] ${
                 i === 1 ? "lg:mt-8" : i === 3 ? "lg:mt-8" : ""
               }`}
