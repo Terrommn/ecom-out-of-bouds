@@ -1,26 +1,171 @@
 @import "tailwindcss";
 
+/* Tema Out Of Bounds — colores oficiales */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-mighty-green: #203831;
+  --color-gold: #e1c071;
+  --color-white: #ffffff;
+  --color-light-teal: #d2e8e0;
+  --color-green: #5f7b47;
+
+  /* Semántica (compatibilidad con --oob-* en componentes) */
+  --oob-bg: var(--color-white);
+  --oob-bg-elevated: #f4f9f7;
+  --oob-surface: rgba(210, 232, 224, 0.55);
+  --oob-border: rgba(32, 56, 49, 0.18);
+  --oob-gold: var(--color-gold);
+  --oob-gold-dim: #c9a85a;
+  --oob-gold-hover: #d4b062;
+  --oob-gold-glow: rgba(225, 192, 113, 0.4);
+  --oob-cream: var(--color-mighty-green);
+  --oob-muted: rgba(32, 56, 49, 0.58);
+  --oob-fairway: var(--color-green);
+  --oob-fairway-soft: rgba(95, 123, 71, 0.18);
+  --foreground: var(--oob-cream);
+  --background: var(--oob-bg);
+
+  /* Barra superior: fondo color principal, texto claro */
+  --oob-topbar-bg: var(--color-mighty-green);
+  --oob-topbar-text: #ffffff;
+  --oob-topbar-muted: rgba(255, 255, 255, 0.72);
+  --oob-topbar-border: rgba(255, 255, 255, 0.12);
+  --oob-topbar-hover: rgba(255, 255, 255, 0.1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Escudo badge: máscaras en blanco; trazos con color del texto */
+.brand-badge svg mask path {
+  fill: #fff;
+}
+
+.brand-badge svg g[mask] > path {
+  fill: currentColor;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--oob-bg);
+  color: var(--oob-cream);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--oob-gold-glow);
+  color: var(--color-mighty-green);
+}
+
+.oob-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .oob-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.oob-heading-xl {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.oob-line-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-light-teal),
+    var(--oob-gold),
+    var(--color-light-teal),
+    transparent
+  );
+}
+
+/* Textura muy sutil sobre fondo blanco */
+.oob-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* Hero portada — animación editorial (respeta prefers-reduced-motion) */
+@keyframes hero-mag-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-magazine .hero-mag-kicker {
+  animation: hero-mag-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-magazine .hero-mag-issue {
+  animation: hero-mag-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+}
+.hero-magazine .hero-mag-title {
+  animation: hero-mag-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+.hero-magazine .hero-mag-rule {
+  animation: hero-mag-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+.hero-magazine .hero-mag-deck {
+  animation: hero-mag-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+.hero-magazine .hero-mag-cta {
+  animation: hero-mag-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both;
+}
+.hero-magazine .hero-mag-aside {
+  animation: hero-mag-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+.hero-magazine .hero-mag-rail {
+  animation: hero-mag-in 1s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-magazine .hero-mag-kicker,
+  .hero-magazine .hero-mag-issue,
+  .hero-magazine .hero-mag-title,
+  .hero-magazine .hero-mag-rule,
+  .hero-magazine .hero-mag-deck,
+  .hero-magazine .hero-mag-cta,
+  .hero-magazine .hero-mag-aside,
+  .hero-magazine .hero-mag-rail {
+    animation: none;
+  }
+}
+
+.hero-mag-vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-orientation: mixed;
 }
