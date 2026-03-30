@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useLayoutEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -14,18 +15,24 @@ const REVIEWS = [
     role: "Hándicap 12",
     text: "Los polos tienen un caída impecable y el tejido aguanta las vueltas completas sin perder forma.",
     stars: 5,
+    avatarSrc:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=128&h=128&fit=crop&crop=face&q=80",
   },
   {
     name: "Carlos V.",
     role: "Socio club",
     text: "Por fin una marca que entiende estética y técnica. Uso la chaqueta también fuera del campo.",
     stars: 5,
+    avatarSrc:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=128&h=128&fit=crop&crop=face&q=80",
   },
   {
     name: "Elena R.",
     role: "Torneos nacionales",
     text: "Envío rápido y tallaje fiel. El cinturón y los guantes son de los mejores que he probado.",
     stars: 5,
+    avatarSrc:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=128&h=128&fit=crop&crop=face&q=80",
   },
 ];
 
@@ -99,7 +106,16 @@ export function Testimonials() {
               </div>
               <p className="mt-4 text-[var(--oob-cream)]/95 leading-relaxed flex-1">&ldquo;{r.text}&rdquo;</p>
               <div className="mt-6 flex items-center gap-3">
-                <div className="h-11 w-11 rounded-full bg-gradient-to-br from-[var(--oob-gold-dim)] to-[var(--oob-bg)] border border-[color:var(--oob-border)]" />
+                <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[color:var(--oob-border)] bg-[var(--oob-bg)]">
+                  <Image
+                    src={r.avatarSrc}
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="h-full w-full object-cover"
+                    sizes="44px"
+                  />
+                </div>
                 <div>
                   <p className="font-medium text-[var(--oob-cream)]">{r.name}</p>
                   <p className="text-xs text-[var(--oob-muted)]">{r.role}</p>

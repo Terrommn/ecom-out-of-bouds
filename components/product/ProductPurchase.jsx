@@ -149,12 +149,10 @@ export function ProductPurchase({ product }) {
           </a>{" "}
           según políticas de la tienda.
         </p>
-        {activeVariant?.quantityAvailable != null ? (
+        {activeVariant ? (
           <p>
             Disponibilidad:{" "}
-            {activeVariant.availableForSale
-              ? `${activeVariant.quantityAvailable} en stock (aprox.)`
-              : "No disponible"}
+            {activeVariant.availableForSale ? "En stock" : "No disponible"}
           </p>
         ) : null}
       </div>

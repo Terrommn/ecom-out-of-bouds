@@ -19,16 +19,16 @@ const serviceLinks = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-[2] border-b border-[color:var(--oob-topbar-border)] bg-[var(--oob-topbar-bg)] shadow-sm shadow-black/10">
-      <div className="oob-container flex h-16 md:h-[4.25rem] items-center justify-between gap-4">
+      <div className="oob-container grid h-16 md:h-[4.25rem] grid-cols-[auto_1fr] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
         <Link
           href="/"
-          className="group flex min-w-0 shrink-0 items-center transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oob-gold)]"
+          className="group flex min-w-0 shrink-0 items-center justify-self-start transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--oob-gold)]"
         >
           <BrandWordmark variant="onDark" />
         </Link>
 
         <nav
-          className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide"
+          className="hidden lg:flex lg:col-start-2 lg:justify-self-center items-center gap-8 text-sm font-medium tracking-wide"
           aria-label="Principal"
         >
           {nav.map((item) => (
@@ -42,7 +42,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 md:gap-3">
+        <div className="col-start-2 flex items-center justify-self-end gap-2 md:gap-3 lg:col-start-3">
           <HeaderSearch />
 
           <Link
