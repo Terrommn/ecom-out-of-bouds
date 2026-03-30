@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Headless Shopify storefront (Next.js 15)
 
-## Getting Started
+Standard Next.js App Router + [Shopify Storefront GraphQL API](https://shopify.dev/docs/api/storefront) (public access token). No Hydrogen, Hydrogen React, Remix, or Liquid.
 
-First, run the development server:
+## Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. From this project folder (`shopify-headless-storefront/`), copy `.env.example` to `.env.local` and fill in:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   - `SHOPIFY_STORE_DOMAIN` — hostname only (e.g. `your-store.myshopify.com`). You can paste a full `https://` URL; it is normalized automatically.
+   - `SHOPIFY_STOREFRONT_ACCESS_TOKEN` — public token from the Headless channel / Storefront API
+   - `NEXT_PUBLIC_SITE_URL` — site URL for metadata (e.g. `http://localhost:3000` locally, `https://your-app.vercel.app` in production)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. Install and run:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-## Learn More
+   After creating or editing `.env.local`, stop and restart `npm run dev` so Next.js reloads environment variables.
 
-To learn more about Next.js, take a look at the following resources:
+3. Optional: `MAX_PRODUCTS` caps how many products are fetched when loading the home page (default 500).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Using the same store as a Hydrogen project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This template is **not** Hydrogen, but it uses the same **Storefront API** public credentials:
+
+| Your Hydrogen / `env pull` variable | Set in this app as |
+| --- | --- |
+| `PUBLIC_STORE_DOMAIN` | `SHOPIFY_STORE_DOMAIN` |
+| `PUBLIC_STOREFRONT_API_TOKEN` | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` |
+
+Use the **public** storefront token only. Do **not** use `PRIVATE_STOREFRONT_API_TOKEN` or any `shpat_` Admin token for `SHOPIFY_STOREFRONT_ACCESS_TOKEN` — that is a different API.
+
+You do not need `SESSION_SECRET`, `PUBLIC_STOREFRONT_ID`, Customer Account API vars, or `SHOP_ID` for the features in this starter.
+
+### Storefront API 401 (Unauthorized)
+
+That response means Shopify rejected the token for the Storefront endpoint. Typical causes:
+
+1. **Wrong token** — `SHOPIFY_STOREFRONT_ACCESS_TOKEN` must be the **Storefront API public access token** (Headless / Hydrogen `PUBLIC_STOREFRONT_API_TOKEN`). **Do not** use `PRIVATE_STOREFRONT_API_TOKEN` or any **`shpat_…`** Admin API token.
+2. **Wrong store** — `SHOPIFY_STORE_DOMAIN` must be the **same** `.myshopify.com` store that created that Headless token.
+3. **Quotes / spaces** — In `.env.local`, don’t wrap the token in quotes unless the whole value is quoted once; avoid trailing spaces.
+4. **API version** — If it still fails, set `SHOPIFY_STOREFRONT_API_VERSION=2024-10` and restart the dev server.
+
+Regenerate or copy the Storefront token from **Shopify Admin → Settings → Apps and sales channels →** your headless storefront / development store.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push the project to Git and import it in [Vercel](https://vercel.com).
+2. Add the same environment variables in **Project → Settings → Environment Variables**.
+3. Deploy. No special build command beyond `npm run build`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project structure
+
+- `lib/shopify.js` — GraphQL client and queries/mutations
+- `app/actions/cart.js` — server actions for cart operations
+- `app/page.js` — product grid
+- `app/[handle]/page.js` — product detail + `generateMetadata`
+- `app/cart/page.js` — full cart page
+- `components/` — `Navbar`, `ProductCard`, `Cart` (drawer), `CartProvider`, `ProductAddToCart`
+# ecom-out-of-bouds
