@@ -7,7 +7,6 @@ const nav = [
   { href: "/collections/hombre", label: "Hombre" },
   { href: "/collections/mujer", label: "Mujer" },
   { href: "/collections/accesorios", label: "Accesorios" },
-  { href: "/collections", label: "Colecciones" },
 ];
 
 const serviceLinks = [
