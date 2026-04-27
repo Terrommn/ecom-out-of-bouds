@@ -58,11 +58,9 @@ export function NewsletterSocial() {
               <div className="mt-8 flex flex-wrap gap-3">
                 {[
                   {
-                    href: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://instagram.com",
+                    href: "https://www.instagram.com/outofbounds.mx",
                     label: "Instagram",
                   },
-                  { href: "https://facebook.com", label: "Facebook" },
-                  { href: "https://youtube.com", label: "YouTube" },
                 ].map((s) => (
                   <a
                     key={s.href}

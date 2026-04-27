@@ -18,9 +18,7 @@ const legal = [
 ];
 
 const social = [
-  { href: "https://instagram.com", label: "Instagram", icon: "ig" },
-  { href: "https://facebook.com", label: "Facebook", icon: "fb" },
-  { href: "https://twitter.com", label: "X", icon: "x" },
+  { href: "https://www.instagram.com/outofbounds.mx", label: "Instagram", icon: "ig" },
 ];
 
 export function SiteFooter() {
