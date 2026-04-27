@@ -13,39 +13,15 @@ export default async function CollectionsIndexPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <header className="relative h-[60vh] md:h-[70vh] overflow-hidden border-b border-[color:var(--oob-border)]">
-        <div className="absolute inset-0 grid grid-cols-2">
-          <div className="relative">
-            <Image
-              src="/collections-hero-man.jpg"
-              alt="Out Of Bounds menswear"
-              fill
-              className="object-cover object-top"
-              sizes="50vw"
-              priority
-            />
-          </div>
-          <div className="relative">
-            <Image
-              src="/collections-hero-woman.jpg"
-              alt="Out Of Bounds womenswear"
-              fill
-              className="object-cover object-top"
-              sizes="50vw"
-              priority
-            />
-          </div>
-        </div>
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative h-full flex items-center justify-center text-center px-6">
-          <div>
-            <h1 className="oob-heading-xl text-5xl md:text-7xl text-white">
-              Collections
-            </h1>
-            <p className="mt-4 font-mono text-xs uppercase tracking-[0.4em] text-white/60">
-              Out Of Bounds
-            </p>
-          </div>
+      <header className="relative flex items-center justify-center h-[40vh] md:h-[50vh] overflow-hidden border-b border-[color:var(--oob-border)]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--oob-bg)] via-[var(--oob-bg-elevated)] to-[var(--oob-bg)]" />
+        <div className="relative text-center px-6">
+          <h1 className="oob-heading-xl text-5xl md:text-7xl text-[var(--oob-cream)]">
+            Colecciones
+          </h1>
+          <p className="mt-4 font-mono text-xs uppercase tracking-[0.4em] text-[var(--oob-muted)]">
+            Out Of Bounds
+          </p>
         </div>
       </header>
 
