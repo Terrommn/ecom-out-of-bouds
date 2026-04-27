@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { getCollectionPage } from "@/lib/shopify";
 import { ProductCard } from "@/components/home/ProductCard";
 import { CollectionToolbar } from "@/components/collection/CollectionToolbar";
-import { ComingSoon } from "@/components/collection/ComingSoon";
 import {
   getCollectionSort,
   parseCollectionProductFilters,
@@ -13,16 +12,8 @@ import {
   collectionNextHref,
 } from "@/lib/collection-params";
 
-const COMING_SOON_HANDLES = new Set(["mujer", "mujeres"]);
-
 export async function generateMetadata({ params }) {
   const { handle } = await params;
-  if (COMING_SOON_HANDLES.has(handle)) {
-    return {
-      title: "Mujer · Próximamente | Out Of Bounds",
-      description: "La colección de mujer estará disponible muy pronto.",
-    };
-  }
   const collection = await getCollectionPage({
     handle,
     first: 1,
@@ -40,9 +31,6 @@ export async function generateMetadata({ params }) {
 export default async function CollectionPage({ params, searchParams }) {
   const { handle } = await params;
 
-  if (COMING_SOON_HANDLES.has(handle)) {
-    return <ComingSoon title="Mujer" />;
-  }
   const sp = await searchParams;
   const sort = getCollectionSort(sp);
   const filters = parseCollectionProductFilters(sp);
