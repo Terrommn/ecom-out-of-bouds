@@ -4,7 +4,6 @@ import { getProductByHandleSafe } from "@/lib/shopify";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { ProductSpecs } from "@/components/product/ProductSpecs";
-import { JudgeMePlaceholder } from "@/components/reviews/JudgeMePlaceholder";
 
 export async function generateMetadata({ params }) {
   const { handle } = await params;
@@ -45,7 +44,6 @@ export default async function ProductPage({ params }) {
             />
           ) : null}
           <ProductSpecs metafields={metafields} />
-          <JudgeMePlaceholder productId={product.id} />
         </div>
       </div>
     </div>
